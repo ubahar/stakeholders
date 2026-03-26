@@ -1,0 +1,4 @@
+optimizely-opal.opal-tools-sdk==0.1.22.dev0
+supabase
+python-dotenv
+uvicorn
