@@ -29,3 +29,27 @@ def lookup_account(account_name: str) -> Optional[dict]:
     if result.data:
         return result.data[0]
     return None
+
+
+def get_account_id(account_name: str) -> Optional[str]:
+    client = get_client()
+    result = (
+        client.table("accounts")
+        .select("id")
+        .eq("account_name", account_name)
+        .limit(1)
+        .execute()
+    )
+    if result.data:
+        return result.data[0]["id"]
+    return None
+
+
+def create_action_item(account_id: str, owner: str, action: str) -> dict:
+    client = get_client()
+    result = (
+        client.table("action_items")
+        .insert({"account": account_id, "owner": owner, "action": action})
+        .execute()
+    )
+    return result.data[0]
